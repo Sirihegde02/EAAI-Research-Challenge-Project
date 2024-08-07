@@ -31,6 +31,7 @@ def round_quality_metric(target_word, words):
     quality = np.mean(associations) - np.mean(diversity)
     return quality
 
+#TO DO FOR NEXT WEEK:
 #Sanity Check
 #Growing phase to increase (approx 100 adjectives, 200-300 nouns)
 #Choose a card from the deck (500 cards)
