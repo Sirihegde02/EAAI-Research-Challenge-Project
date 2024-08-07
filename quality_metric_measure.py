@@ -30,3 +30,7 @@ def round_quality_metric(target_word, words):
     diversity = [similarity(words[i], words[j]) for i in range(len(words)) for j in range(i+1, len(words))]
     quality = np.mean(associations) - np.mean(diversity)
     return quality
+
+#Sanity Check
+#Growing phase to increase (approx 100 adjectives, 200-300 nouns)
+#Choose a card from the deck (500 cards)
