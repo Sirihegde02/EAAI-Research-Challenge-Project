@@ -29,8 +29,8 @@ def generate_associations(prompt, num_responses=3):
     return [tokenizer.decode([token]).strip() for token in top_k_tokens if "##" not in tokenizer.decode([token]).strip()]
 
 #This function generates nouns or adjectives until deck size == 42
-def growing_phase(adjectives, deck_size=42):
-    """Generate a deck by growing it with nouns and adjectives iteratively."""
+def growing_phase(adjectives, deck_size=500):
+    """Generate a larger deck by growing it with nouns and adjectives iteratively."""
     deck = set()  # Use a set to ensure unique words
     while len(deck) < deck_size:
         for adjective in adjectives:
