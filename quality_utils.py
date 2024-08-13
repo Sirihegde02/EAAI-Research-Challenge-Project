@@ -2,7 +2,6 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 from sklearn.metrics.pairwise import cosine_similarity
 import torch
-import random
 
 # Load BERT model and tokenizer
 print("Loading BERT model and tokenizer for quality metric measure...")
@@ -32,7 +31,18 @@ def round_quality_metric(target_word, words):
     quality = np.mean(associations) - np.mean(diversity)
     return quality
 
-# Function to simulate multiple rounds and write results to a text file
+def distribute_cards(deck, players=6, cards_per_player=7):
+    """Distribute cards among players."""
+    hands = {}
+    for player in range(1, players + 1):
+        hands[f"Player-{player}"] = random.sample(deck, cards_per_player)
+        deck = [card for card in deck if card not in hands[f"Player-{player}"]]
+    return hands
+
+def find_best_association(player_hand, target_word):
+    """Find the best association from a player's hand for a given word."""
+    return max(player_hand, key=lambda word: similarity(target_word, word))
+
 def simulate_rounds(deck, num_rounds=10):
     """Simulate multiple rounds using the generated deck and log results."""
     with open("round_simulation_results.txt", "w") as file:
@@ -52,20 +62,7 @@ def simulate_rounds(deck, num_rounds=10):
             file.write(f"Quality of the round: {quality_score}\n\n")
     print("Simulation complete. Results saved to 'round_simulation_results.txt'.")
 
-def distribute_cards(deck, players=6, cards_per_player=7):
-    """Distribute cards among players."""
-    hands = {}
-    for player in range(1, players + 1):
-        hands[f"Player-{player}"] = random.sample(deck, cards_per_player)
-        deck = [card for card in deck if card not in hands[f"Player-{player}"]]
-    return hands
-
-def find_best_association(player_hand, target_word):
-    """Find the best association from a player's hand for a given word."""
-    return max(player_hand, key=lambda word: similarity(target_word, word))
-
 if __name__ == "__main__":
-    # Example of running the simulation with a pre-generated deck
     try:
         with open("generated_deck.txt", "r") as file:
             deck = file.read().splitlines()
