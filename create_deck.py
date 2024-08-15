@@ -104,3 +104,7 @@ if __name__ == "__main__":
     # Step 5: Calculating the quality metric for the round
     quality_score = round_quality_metric(target_word, list(player_choices.values()))
     print(f"\nQuality of the round: {quality_score}")
+
+
+#Further changes to make:
+#Discussed Aug 15th
